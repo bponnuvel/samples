@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  crudservice:
+    image: crudservice
+    build:
+      context: .
+      dockerfile: CrudService/Dockerfile
+    environment:
+    - ConnectionString=Server=sql.data; Database=Hooli.Services.AppDb; User Id=sa;Password=Pass@word
+    depends_on:
+    - rabbitmq
+    - sql.data
+
+  simpleservice:
+    image: simpleservice
+    build:
+      context: .
+      dockerfile: SimpleService/Dockerfile
+    environment:
+    - ConnectionString=Server=sql.data; Database=Hooli.Services.AppDb2; User Id=sa;Password=Pass@word
+    depends_on:
+    - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
+  sql.data:
+    image: microsoft/mssql-server-linux:2017-latest

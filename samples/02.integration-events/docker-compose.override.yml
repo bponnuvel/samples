@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  crudservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - EventBusConnection=${ESHOP_AZURE_SERVICE_BUS:-rabbitmq}
+    ports:
+      - "80"
+
+  simpleservice:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - EventBusConnection=${ESHOP_AZURE_SERVICE_BUS:-rabbitmq}
+
+    ports:
+      - "80"
+
+  sql.data:
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5433:1433"
+
+  rabbitmq:
+    ports:
+      - "15672:15672"
+      - "5672:5672"
