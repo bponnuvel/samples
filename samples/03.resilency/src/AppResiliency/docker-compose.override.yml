@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  sampleapp1:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+    ports:
+      - "30100:80"
+
+  sampleapp2:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - AndroidApiBaseUri=http://sampleapp1/api
+    ports:
+      - "30200:80"
+
